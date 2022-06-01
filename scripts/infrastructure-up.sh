@@ -197,9 +197,9 @@ Environment
 EOF
 
   bucket_accesslog_pairs=("${WEBSITE_BUCKET}:${WEBSITE_BUCKET_ACCESS_LOGS}" "${WEBSITE_WWW_BUCKET}:${WEBSITE_WWW_BUCKET_ACCESS_LOGS}")
-  for bucket_accesslog_pair in ${bucket_accesslog_pairs[@]}; do
+  for bucket_accesslog_pair in "${bucket_accesslog_pairs[@]}" ; do
     IFS=':'
-    read -a pair <<< "${bucket_accesslog_pair}"
+    read -ra pair <<< "${bucket_accesslog_pair}"
     website_bucket="${pair[0]}"
     access_log_bucket="${pair[1]}"
     create_bucket "${website_bucket}" "${REGION_ID}"

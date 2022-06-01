@@ -4,8 +4,8 @@ ARG GAME_CI_UNITY_EDITOR_IMAGE
 FROM $GAME_CI_UNITY_EDITOR_IMAGE
 
 RUN apt-get update \
-&&  apt-get upgrade -y --force-yes \
-&&  apt-get install -y --force-yes \
+&&  apt-get upgrade -y \
+&&  apt-get install -y \
     libssl-dev \
     libreadline-dev \
     zlib1g-dev \
@@ -13,6 +13,6 @@ RUN apt-get update \
     curl \
     git \
     build-essential \
-    blender \
-&&  apt-get clean \
 &&  rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y blender
+RUN apt-get clean
