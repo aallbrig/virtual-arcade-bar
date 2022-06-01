@@ -1,6 +1,0 @@
-HEADERnameModelpace a;
-
-public PatronPatron
-{
-    
-}
