@@ -14,7 +14,7 @@ namespace Tests.PlayMode.MonoBehaviours
             var testLocation = Model.Location.CreateInstance();
             var sut = new GameObject().AddComponent<Patron>();
             Model.Patron realPatron = null;
-            testLocation.AccessGranted += patron => realPatron = patron;
+            testLocation.PatronAccessGranted += patron => realPatron = patron;
             yield return null;
 
             testLocation.GrantAccess(sut.PatronInstance);

@@ -1,10 +1,9 @@
 using System;
 using Model.Interfaces;
-using MonoBehaviours;
 
 namespace Model
 {
-    public class Location: IOpen, IAccessGranter
+    public class Location: IOpen, IPatronAccessGranter, IServicePersonAccessGranter
     {
         public static Location CreateInstance()
         {
@@ -15,8 +14,10 @@ namespace Model
 
         public void Open() => Opened?.Invoke();
 
-        public event Action<Patron> AccessGranted;
+        public event Action<Patron> PatronAccessGranted;
+        public event Action<ServicePerson> ServicePersonAccessGranted;
 
-        public void GrantAccess(Patron patron) => AccessGranted?.Invoke(patron);
+        public void GrantAccess(Patron patron) => PatronAccessGranted?.Invoke(patron);
+        public void GrantAccess(ServicePerson servicePerson) => ServicePersonAccessGranted?.Invoke(servicePerson);
     }
 }

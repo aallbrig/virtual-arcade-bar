@@ -6,25 +6,25 @@ using UnityEngine.Events;
 
 namespace MonoBehaviours
 {
-    public class Location : MonoBehaviour, IOpen, IAccessGranter
+    public class Location : MonoBehaviour, IOpen, IPatronAccessGranter, IServicePersonAccessGranter
     {
-        public List<UnityEvent<Model.Patron>> onAccessGranted = new List<UnityEvent<Model.Patron>>();
+        public List<UnityEvent<Model.Patron>> onPatronAccessGranted = new List<UnityEvent<Model.Patron>>();
+        public List<UnityEvent<Model.ServicePerson>> onServicePersonAccessGranted = new List<UnityEvent<Model.ServicePerson>>();
         private Model.Location _location;
-
-        // Used in a UnityEvent action on the prefab
-        public static void LogPatron(Model.Patron patron)
-        {
-            Debug.Log($"access granted to patron {patron}");
-        }
 
         private void Start()
         {
             _location ??= Model.Location.CreateInstance();
             _location.Opened += () => Opened?.Invoke();
-            _location.AccessGranted += patron =>
+            _location.PatronAccessGranted += patron =>
             {
-                onAccessGranted.ForEach(fn => fn?.Invoke(patron));
-                AccessGranted?.Invoke(patron);
+                onPatronAccessGranted.ForEach(fn => fn?.Invoke(patron));
+                PatronAccessGranted?.Invoke(patron);
+            };
+            _location.ServicePersonAccessGranted += servicePerson =>
+            {
+                onServicePersonAccessGranted.ForEach(fn => fn?.Invoke(servicePerson));
+                ServicePersonAccessGranted?.Invoke(servicePerson);
             };
         }
 
@@ -32,17 +32,27 @@ namespace MonoBehaviours
 
         public void Open() => _location.Open();
 
-        public event Action<Model.Patron> AccessGranted;
+        public event Action<Model.Patron> PatronAccessGranted;
 
         public void GrantAccess(Model.Patron patron) {
             _location.GrantAccess(patron);
+        }
+
+        public event Action<Model.ServicePerson> ServicePersonAccessGranted;
+
+        public void GrantAccess(Model.ServicePerson servicePerson) {
+            _location.GrantAccess(servicePerson);
         }
 
         private void OnTriggerEnter(Collider other)
         {
             var maybePatron = other.transform.GetComponent<Patron>();
             if (maybePatron)
-                _location.GrantAccess(maybePatron.PatronInstance);
+                GrantAccess(maybePatron.PatronInstance);
+
+            var maybeServicePerson = other.transform.GetComponent<ServicePerson>();
+            if (maybeServicePerson)
+                GrantAccess(maybeServicePerson.ServicePersonInstance);
         }
     }
 }
