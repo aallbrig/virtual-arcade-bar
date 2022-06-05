@@ -33,3 +33,5 @@ if docker run \
 else
   echo "❌ Docker unity build failed"
 fi
+
+set +ex

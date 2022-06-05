@@ -22,3 +22,5 @@ do
 
   docker push "${IMAGE_TO_PUBLISH}"
 done
+
+set +ex
