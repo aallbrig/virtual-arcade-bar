@@ -17,4 +17,9 @@ See __[QA environment here](https://aallbrig.github.io/virtual-arcade-bar/)__.
 # load up infrastructure in AWS
 ./scripts/website-test.sh
 ./scripts/infrastructure-up.sh
+
+# docker based building
+./scripts/docker-image-build.sh
+# build the current unity project, located by default in subfolders of ./unity directory.
+./scripts/docker-unity-build.sh
 ```
