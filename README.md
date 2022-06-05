@@ -20,6 +20,8 @@ See __[QA environment here](https://aallbrig.github.io/virtual-arcade-bar/)__.
 
 # docker based building
 ./scripts/docker-image-build.sh
+# ensure image is in working order
+./scripts/docker-test.sh
 # build the current unity project, located by default in subfolders of ./unity directory.
 ./scripts/docker-unity-build.sh
 ```
