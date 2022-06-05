@@ -92,6 +92,12 @@ jobs:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
 
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Build
+          path: build
+
   deploy:
     name: Deploys WebGL Game to Github Pages
     runs-on: ubuntu-latest
