@@ -85,6 +85,7 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           buildName: ${{ matrix.targetPlatform }}
           allowDirtyBuild: true
+          customImage: 'aallbrig/editor:ubuntu-2020.3.35f1-webgl-1.0.1'
 
       - uses: actions/upload-artifact@v2
         if: always()
