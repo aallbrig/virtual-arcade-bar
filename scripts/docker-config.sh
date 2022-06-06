@@ -7,6 +7,11 @@ export UNITY_SERIAL='F4-DMQW-KHC3-F6PK-QSQK-JAT6'
 export GAME_CI_VERSION='1.0.1'
 export MY_DOCKER_USERNAME='aallbrig'
 
+export BUILD_TARGET=WebGL
+export BUILD_NAME=WebGL
+export BUILD_PATH=build/WebGL
+export BUILD_FILE=WebGL
+
 export UNITY_PROJECT_NAME='virtual-arcade-bar'
 export PROJECT_WORKDIR="$(pwd)/unity/${UNITY_PROJECT_NAME}"
 export GITHUB_ACTOR='aallbrig'

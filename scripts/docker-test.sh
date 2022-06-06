@@ -14,17 +14,50 @@ for required_executable in "${DEPENDENCIES[@]}" ; do
 done
 
 # I am able to interact with the blender CLI inside the custom docker container
-if docker run --rm -it "${CUSTOM_IMAGE_TAG}" blender -b --version ; then
+if docker run --rm -it "${CUSTOM_IMAGE_TAG}" blender -b --version > /dev/null ; then
   echo "✅ $((++test_counter)) Docker based unity builder was able to interact with the blender CLI"
 else
   echo "❌ $((++test_counter)) Something went wrong with the docker based blender CLI test"
 fi
 
 # I am able to interact with the unity CLI inside the custom docker container
-if docker run --rm -it "${CUSTOM_IMAGE_TAG}" /root/Unity/Hub/Editor version ; then
-  echo "✅ $((++test_counter)) Docker based unity builder was able to interact with the blender CLI"
+if docker run --rm -it "${CUSTOM_IMAGE_TAG}" bash -c '$UNITY_PATH/Editor/Unity -version' > /dev/null ; then
+  echo "✅ $((++test_counter)) Was able to interact with the Unity Editor CLI"
 else
-  echo "❌ $((++test_counter)) Something went wrong with the docker based blender CLI test"
+  echo "❌ $((++test_counter)) Unable to interact with the Unity Editor CLI -- check the command being provided to this test?"
 fi
+
+# I am able to see desired environment variables
+desired_environment_variables=( \
+  # Unity path is defined by parent game.ci docker image
+  "UNITY_PATH" \
+  "UNITY_LICENSE" \
+  "UNITY_SERIAL" \
+  "UNITY_VERSION" \
+  "PROJECT_PATH" \
+  "BUILD_TARGET" \
+  "BUILD_NAME" \
+  "BUILD_PATH" \
+  "BUILD_FILE" \
+)
+
+for environment_variable in "${desired_environment_variables[@]}" ; do
+  if docker run \
+    --rm \
+    --env UNITY_LICENSE \
+    --env UNITY_SERIAL \
+    --env UNITY_VERSION \
+    --env PROJECT_PATH=unity/virtual-arcade-bar \
+    --env BUILD_TARGET \
+    --env BUILD_NAME \
+    --env BUILD_PATH \
+    --env BUILD_FILE \
+    "${CUSTOM_IMAGE_TAG}" \
+    /bin/bash -c "env | grep '^${environment_variable}'" > /dev/null ; then
+    echo "✅ $((++test_counter)) Able to detect environment variable '${environment_variable}'"
+  else
+    echo "❌ $((++test_counter)) Unable to detect environment variable ${environment_variable}"
+  fi
+done
 
 set +ex
