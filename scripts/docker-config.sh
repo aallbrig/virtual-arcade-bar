@@ -10,7 +10,7 @@ export MY_DOCKER_USERNAME='aallbrig'
 export UNITY_PROJECT_NAME='virtual-arcade-bar'
 export PROJECT_WORKDIR="$(pwd)/unity/${UNITY_PROJECT_NAME}"
 export GITHUB_ACTOR='aallbrig'
-export GITHUB_REPOSITORY='virtual-arcade-bar'
+export GITHUB_REPOSITORY='aallbrig/virtual-arcade-bar'
 export CUSTOM_IMAGE_TAG="aallbrig/editor:ubuntu-${UNITY_VERSION}-webgl-${GAME_CI_VERSION}"
 
 set +ex
