@@ -7,7 +7,7 @@ var config = {
     streamingAssetsUrl: "StreamingAssets",
     companyName: "Andrew Allbright",
     productName: "Virtual Arcade Bar",
-    productVersion: "0.0.21",
+    productVersion: "0.1",
     devicePixelRatio: 1,
 }
 
