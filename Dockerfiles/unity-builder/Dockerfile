@@ -45,3 +45,10 @@ RUN rm -rf ${BLENDER_PATH}/python/lib/python3.7m/site-packages/numpy
 
 # Must first ensurepip to install Blender pip3 and then new numpy
 RUN ${BLENDERPY} -m ensurepip && ${BLENDERPIP} install --upgrade pip && ${BLENDERPIP} install numpy
+
+# Clone entrypoint and all scripts
+
+COPY steps /usr/local/bin/steps
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ['/bin/bash','-c','/usr/local/bin/entrypoint.sh']
