@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-set -ex
+
+if [[ -n "${DEBUG}" ]] ; then
+  set -ex
+fi
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
 . "${SCRIPT_DIR}"/docker-config.sh
@@ -66,4 +69,6 @@ function main() {
 
 main
 
-set +ex
+if [[ -n "${DEBUG}" ]] ; then
+  set +ex
+fi

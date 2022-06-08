@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-set -ex
+if [[ -n "${DEBUG}" ]] ; then
+  set -ex
+fi
 
 export UNITY_VERSION='2020.3.35f1'
 export UNITY_SERIAL='F4-DMQW-KHC3-F6PK-QSQK-JAT6'
@@ -18,4 +20,6 @@ export GITHUB_ACTOR='aallbrig'
 export GITHUB_REPOSITORY='aallbrig/virtual-arcade-bar'
 export CUSTOM_IMAGE_TAG="aallbrig/editor:ubuntu-${UNITY_VERSION}-webgl-${GAME_CI_VERSION}"
 
-set +ex
+if [[ -n "${DEBUG}" ]] ; then
+  set +ex
+fi
