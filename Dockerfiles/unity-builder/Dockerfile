@@ -48,7 +48,7 @@ RUN ${BLENDERPY} -m ensurepip && ${BLENDERPIP} install --upgrade pip && ${BLENDE
 
 # Clone entrypoint and all scripts
 
-COPY steps /usr/local/bin/steps
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY . /
+RUN chmod +x /entrypoint.sh /steps/*.sh
 
-ENTRYPOINT ['/bin/bash','-c','/usr/local/bin/entrypoint.sh']
+CMD ["/entrypoint.sh"]

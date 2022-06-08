@@ -20,6 +20,21 @@ export GITHUB_ACTOR='aallbrig'
 export GITHUB_REPOSITORY='aallbrig/virtual-arcade-bar'
 export CUSTOM_IMAGE_TAG="aallbrig/editor:ubuntu-${UNITY_VERSION}-webgl-${GAME_CI_VERSION}"
 
+function Factory::UnityBuilderCommand() {
+  docker run \
+     --rm \
+     --env UNITY_LICENSE \
+     --env UNITY_SERIAL \
+     --env UNITY_VERSION \
+     --env PROJECT_PATH=unity/virtual-arcade-bar \
+     --env BUILD_TARGET \
+     --env BUILD_NAME \
+     --env BUILD_PATH \
+     --env BUILD_FILE \
+     "${CUSTOM_IMAGE_TAG}" \
+     "$@"
+}
+
 if [[ -n "${DEBUG}" ]] ; then
   set +ex
 fi
