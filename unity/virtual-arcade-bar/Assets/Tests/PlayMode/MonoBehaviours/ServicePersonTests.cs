@@ -1,9 +1,9 @@
 using System.Collections;
 using MonoBehaviours;
+using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Location = Model.Location;
 
 namespace Tests.PlayMode.MonoBehaviours
 {
@@ -21,6 +21,18 @@ namespace Tests.PlayMode.MonoBehaviours
             testLocation.GrantAccess(sut.ServicePersonInstance);
 
             Assert.AreEqual(sut.ServicePersonInstance, realServicePerson);
+        }
+
+        [UnityTest]
+        public IEnumerator TestNSubstitute()
+        {
+            var sut = new GameObject().AddComponent<ServicePerson>();
+            var testLocation = Substitute.For<Model.Interfaces.IServicePersonAccessGranter>();
+            yield return null;
+
+            testLocation.GrantAccess(sut.ServicePersonInstance);
+
+            testLocation.Received().GrantAccess(sut.ServicePersonInstance);
         }
     }
 }
