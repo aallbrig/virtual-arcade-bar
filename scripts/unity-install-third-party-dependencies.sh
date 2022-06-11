@@ -24,9 +24,16 @@ proj_path="${PROJECT_PATH:-unity/virtual-arcade-bar/Playmode.csproj}"
 # Oh, wow openupm is a cool project
 # Lets see if this works without having to add this script to the CI/CD system
 pushd "$(pwd)"/unity/virtual-arcade-bar
-openupm add net.tnrd.nsubstitute
+# Mirror comes with a version of nsubstitute
+# openupm add net.tnrd.nsubstitute
 pushd Assets
-git clone --depth 1 --branch v67.1.0 https://github.com/vis2k/Mirror.git
+
+if stat "/tmp/Mirror" ; then
+  rm -rf /tmp/Mirror
+fi
+
+git clone --depth 1 --branch v67.1.0 https://github.com/vis2k/Mirror.git /tmp/Mirror
+cp -R /tmp/Mirror/Assets/* ./
 popd
 popd
 
