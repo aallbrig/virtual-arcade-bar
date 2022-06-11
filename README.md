@@ -25,6 +25,9 @@ See __[QA environment here](https://aallbrig.github.io/virtual-arcade-bar/)__.
 # build the current unity project, located by default in subfolders of ./unity directory.
 ./scripts/docker-unity-build.sh
 
+# Install third party dependencies of unity (e.g. NSubstitute)
+./scripts/unity-install-third-party-dependencies.sh
+
 # Debug docker image
 source ./scripts/docker-config.sh
 docker run -it --rm "${CUSTOM_IMAGE_TAG}" bash
