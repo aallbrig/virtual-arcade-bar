@@ -47,11 +47,12 @@ if [ -z "$BUILD_METHOD" ]; then
   echo "Using built-in build method."
   # Create Editor directory if it does not exist
   mkdir -p "$UNITY_PROJECT_PATH/Assets/Editor/"
-  git clone --depth 1 https://github.com/game-ci/unity-builder /tmp/unity-builder
-  cp -R /tmp/unity-builder/dist/default-build-script/Assets/Editor/ "$UNITY_PROJECT_PATH/Assets/Editor/"
+  # Note: if (when) this file gets moved, this script will no longer work
+  curl https://raw.githubusercontent.com/game-ci/documentation/main/example/BuildScript.cs \
+    --output "$UNITY_PROJECT_PATH/Assets/Editor/BuildScript.cs"
   # Copy the build script of Unity Builder action
   # Set the Build method to that of UnityBuilder Action
-  BUILD_METHOD="UnityBuilderAction.Builder.BuildProject"
+  BUILD_METHOD="UnityBuilderAction.BuildScript.Build"
   # Verify recursive paths
   ls -Ralph "$UNITY_PROJECT_PATH/Assets/Editor/"
   #
