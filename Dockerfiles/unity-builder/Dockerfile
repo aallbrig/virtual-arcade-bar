@@ -41,7 +41,9 @@ RUN wget https://mirror.clarkson.edu/blender/release/Blender2.82/blender-2.82-li
     # Blender comes with a super outdated version of numpy (which is needed for matplotlib / opencv) so override it with a modern one
     && rm -rf ${BLENDER_PATH}/python/lib/python3.7m/site-packages/numpy \
     # Must first ensurepip to install Blender pip3 and then new numpy
-    && ${BLENDERPY} -m ensurepip && ${BLENDERPIP} install --upgrade pip && ${BLENDERPIP} install numpy
+    && ${BLENDERPY} -m ensurepip && ${BLENDERPIP} install --upgrade pip && ${BLENDERPIP} install numpy \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Clone entrypoint and all scripts
 COPY . /
