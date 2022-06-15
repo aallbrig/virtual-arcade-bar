@@ -29,25 +29,21 @@ RUN apt-get update && apt-get install -y \
 
 # Download and install Blender
 RUN wget https://mirror.clarkson.edu/blender/release/Blender2.82/blender-2.82-linux64.tar.xz \
-	&& tar -xvf blender-2.82-linux64.tar.xz --strip-components=1 -C /bin \
-	&& rm -rf blender-2.82-linux64.tar.xz \
-	&& rm -rf blender-2.82-linux64
-
-# Download the Python source since it is not bundled with Blender
-RUN wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz \
-	&& tar -xzf Python-3.7.0.tgz \
-	&& cp -r Python-3.7.0/Include/* $BLENDER_PATH/python/include/python3.7m/ \
-	&& rm -rf Python-3.7.0.tgz \
-	&& rm -rf Python-3.7.0
-
-# Blender comes with a super outdated version of numpy (which is needed for matplotlib / opencv) so override it with a modern one
-RUN rm -rf ${BLENDER_PATH}/python/lib/python3.7m/site-packages/numpy
-
-# Must first ensurepip to install Blender pip3 and then new numpy
-RUN ${BLENDERPY} -m ensurepip && ${BLENDERPIP} install --upgrade pip && ${BLENDERPIP} install numpy
+    && tar -xvf blender-2.82-linux64.tar.xz --strip-components=1 -C /bin \
+    && rm -rf blender-2.82-linux64.tar.xz \
+    && rm -rf blender-2.82-linux64 \
+    # Download the Python source since it is not bundled with Blender
+    && wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz \
+    && tar -xzf Python-3.7.0.tgz \
+    && cp -r Python-3.7.0/Include/* $BLENDER_PATH/python/include/python3.7m/ \
+    && rm -rf Python-3.7.0.tgz \
+    && rm -rf Python-3.7.0 \
+    # Blender comes with a super outdated version of numpy (which is needed for matplotlib / opencv) so override it with a modern one
+    && rm -rf ${BLENDER_PATH}/python/lib/python3.7m/site-packages/numpy \
+    # Must first ensurepip to install Blender pip3 and then new numpy
+    && ${BLENDERPY} -m ensurepip && ${BLENDERPIP} install --upgrade pip && ${BLENDERPIP} install numpy
 
 # Clone entrypoint and all scripts
-
 COPY . /
 RUN chmod +x /entrypoint.sh /steps/*.sh
 
