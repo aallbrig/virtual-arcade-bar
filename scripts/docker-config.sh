@@ -66,7 +66,7 @@ function Factory::UnityBuilderCommand() {
     --env UNITY_EMAIL \
     --env UNITY_PASSWORD \
     --env VERSION \
-    --env PROJECT_PATH=unity/virtual-arcade-bar \
+    --env PROJECT_PATH=root \
     --env BUILD_TARGET \
     --env BUILD_NAME \
     --env BUILD_PATH \
