@@ -138,11 +138,6 @@ unity-editor \
   -executeMethod "$BUILD_METHOD" \
   -buildVersion "$VERSION" \
   -androidVersionCode "$ANDROID_VERSION_CODE" \
-  -androidKeystoreName "$ANDROID_KEYSTORE_NAME" \
-  -androidKeystorePass "$ANDROID_KEYSTORE_PASS" \
-  -androidKeyaliasName "$ANDROID_KEYALIAS_NAME" \
-  -androidKeyaliasPass "$ANDROID_KEYALIAS_PASS" \
-  -androidTargetSdkVersion "$ANDROID_TARGET_SDK_VERSION" \
   $CUSTOM_PARAMETERS
 
 # Catch exit code
