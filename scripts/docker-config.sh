@@ -51,7 +51,8 @@ function Factory::UnityBuilderCommand() {
   # --env RUNNER_TOOL_CACHE=/opt/hostedtoolcache
   # --env RUNNER_TEMP=/home/runner/work/_temp
   # --env RUNNER_WORKSPACE=/home/runner/work/virtual-arcade-bar
-  # --env UNITY_SERIAL --env GITHUB_WORKSPACE=/github/workspace
+  # --env UNITY_SERIAL
+  # --env GITHUB_WORKSPACE=/github/workspace
   # --volume /home/runner/work/_temp/_github_home:/root:z
   # --volume /home/runner/work/_temp/_github_workflow:/github/workflow:z
   # --volume /home/runner/work/virtual-arcade-bar/virtual-arcade-bar:/github/workspace:z
@@ -64,13 +65,14 @@ function Factory::UnityBuilderCommand() {
     --env UNITY_LICENSE \
     --env UNITY_EMAIL \
     --env UNITY_PASSWORD \
-    --env VERSION="${UNITY_VERSION}" \
+    --env VERSION \
     --env PROJECT_PATH=unity/virtual-arcade-bar \
     --env BUILD_TARGET \
     --env BUILD_NAME \
     --env BUILD_PATH \
     --env BUILD_FILE \
     --env ANDROID_VERSION_CODE=34 \
+    --volume "${PROJECT_WORKDIR}":/root:z \
     "${CUSTOM_IMAGE_TAG}" \
     "$@"
 }
