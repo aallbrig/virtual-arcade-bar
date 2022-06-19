@@ -1,3 +1,7 @@
+.bash_history
+.local
+.config
+Assets/Editor/UnityBuilderAction*
 /[Aa]ssets/[Mm]irror
 /[Aa]ssets/[Ss]cript[Tt]emplates
 
