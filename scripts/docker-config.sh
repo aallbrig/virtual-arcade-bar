@@ -19,6 +19,7 @@ export VERSION=0.0.34 # Not sure what this is a version for
 
 export UNITY_PROJECT_NAME='virtual-arcade-bar'
 export PROJECT_WORKDIR="$(pwd)/unity/${UNITY_PROJECT_NAME}"
+export PROJECT_BUILDDIR="$(pwd)/static/WebGL"
 export GITHUB_ACTOR='aallbrig'
 export GITHUB_REPOSITORY='aallbrig/virtual-arcade-bar'
 export CUSTOM_IMAGE_TAG="aallbrig/editor:ubuntu-${UNITY_VERSION}-webgl-${GAME_CI_VERSION}"
@@ -73,6 +74,7 @@ function Factory::UnityBuilderCommand() {
     --env BUILD_FILE \
     --env ANDROID_VERSION_CODE=34 \
     --volume "${PROJECT_WORKDIR}":/root:z \
+    --volume "${PROJECT_BUILDDIR}":/build/WebGL/WebGL:z \
     "${CUSTOM_IMAGE_TAG}" \
     "$@"
 }
